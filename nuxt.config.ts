@@ -13,7 +13,7 @@ export default defineNuxtConfig({
       theme: {
         themes: {
           light: {
-            dark: true,
+            dark: false,
             colors: {
               //primary: colors.red.darken1, // #E53935
               // secondary: colors.red.lighten4, // #FFCDD2
