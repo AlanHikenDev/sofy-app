@@ -43,9 +43,9 @@
             </v-container>
             
         </div>
-        <pre>
+        <!-- <pre>
             {{ tips }}
-        </pre>
+        </pre> -->
     </div>
 </template>
 <script>

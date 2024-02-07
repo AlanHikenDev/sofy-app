@@ -7,6 +7,7 @@
     <v-stepper
       v-model="step"
       :items="items"
+      color="orange"
       show-actions
     >
       <template v-slot:item.1>
@@ -17,7 +18,7 @@
             <v-container fluid>
                 <v-row>
                     <v-col cols="4">
-                        <v-list-subheader>Infrese el monto total</v-list-subheader>
+                        <v-list-subheader>Monto total de propinas</v-list-subheader>
                     </v-col>
 
                     <v-col cols="8">
@@ -37,7 +38,7 @@
                     <v-col cols="8">
                         <v-switch
                             v-model="tip.isSplit"
-                            label="orange-darken-3"
+                            :label="tip.isSplit? 'si' : 'no'"
                             color="orange-darken-3"
                             hide-details
                         ></v-switch>
@@ -62,10 +63,11 @@
 
                     <v-col cols="8">
                         <v-text-field
-                        label="Amount"
+                        label="Numero de personas"
                         v-model="tip.num_personas"
-                        prefix="$"
                         type="number"
+                        min="1"
+                        @input="validarValor"
                         ></v-text-field>
                     </v-col>
                 </v-row>
@@ -103,7 +105,7 @@
     <div class="position-absolute d-flex align-center justify-center w-100 h-100">
       <v-btn
         size="x-large"
-        color="deep-purple-darken-2"
+        color="orange-darken-2"
         @click="sendTip"
       >
         realizar pago
@@ -164,10 +166,10 @@
         </v-sheet>
       </template>
     </v-stepper>
-    <pre>
+    <!-- <pre>
          <h1> {{ subtotal }}</h1>
         {{ tip }}
-    </pre>
+    </pre> -->
 </v-card>
   </template>
   <script>
@@ -228,6 +230,12 @@
         },
         goToAllTips() {
             this.$router.push('/');
+        },
+        validarValor() {
+            // Si el valor es null o menor que 1, establece el valor a 1
+            if (!this.tip.num_personas || this.tip.num_personas < 1) {
+                this.tip.num_personas = 1;
+            }
         }
       },
       computed: {
