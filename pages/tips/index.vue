@@ -88,9 +88,11 @@
       <template v-slot:item.3>
         <h3 class="text-h6">Confirm</h3>
   
-        <br>
-  
+        <br>  
         <v-sheet border>
+              <p>
+                El moto por persona es : {{ subtotal }}
+              </p>
                 <v-container fluid>
                     <p>Seleccione el tipo de pago </p>
                     <v-radio-group v-model="tip.payment_method">
@@ -218,7 +220,14 @@
             this.dialog = true
 
             this.tip.pago_por_persona = this.subtotal
-            
+
+            const fecha = new Date();
+      
+            // Formatear la fecha como desees
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const fechaActual = fecha.toLocaleDateString('es-ES', options);
+
+            this.tip.fecha = fechaActual
             const newtip = {
                 ...this.tip
             }

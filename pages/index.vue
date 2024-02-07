@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div class="d-flex align-center flex-column">
+        <div class="d-flex align-center flex-column mt-4 mb-4">
             <div class="text-subtitle-2">
-                <h1>Todos los pagos de propinas </h1>
+                <h1>Historial de pagos </h1>
             </div>
 
             <v-container>
@@ -12,32 +12,46 @@
                     :key="i"
                     cols="12"
                 > 
-                <v-card
-                    color="orange"
-                    theme="dark"
-                    width="400"
-                    :title="'Pago de propina ' + tip.id"
-                    class="text-white"
-                    >
 
-                    <v-card-item>
-                        <div class="text-overline mb-1">
-                           <h1>
-                            Monto total:
-                           </h1>
-                           {{ tip.total }}
-                        </div>
-                    
-                        <div class="text-overline mb-1">
-                            <strong>se dividio en muchas personas: </strong> {{ tip.isSplit ? 'si': 'no' }}
-                        </div>
-                   
-                        <div class="text-overline mb-1">
-                            <strong>Pago por persona: </strong>  {{ tip.pago_por_persona }}
-                        </div>
-                    </v-card-item>
-                </v-card>
-            
+      <v-card
+        class="mx-auto"
+        max-width="400"
+        title="Pago de propina"
+        :subtitle="'pagado el ' + tip.fecha"
+      >
+        <template v-slot:prepend>
+          <v-icon icon="mdi-credit-card" color="primary"></v-icon>
+        </template>
+        <template v-slot:append>
+          <v-icon icon="mdi-check" color="success"></v-icon>
+        </template>
+        <v-card-text> 
+            <v-list lines="one">
+                <v-list-item
+                    :title="'Total de pago :'"
+                    :subtitle="tip.total"
+                ></v-list-item>
+                <v-list-item
+                    :title="'Se dividio :'"
+                    :subtitle="tip.isSplit ? 'si': 'no'"
+                ></v-list-item>
+                <v-list-item
+                    :title="'Numero de pesonas'"
+                    :subtitle="tip.num_personas"
+                ></v-list-item>
+                <v-list-item
+                    :title="'Pago por persona '"
+                    :subtitle="tip.pago_por_persona"
+                ></v-list-item>
+                <v-list-item
+                    :title="'Metodo de pago :'"
+                    :subtitle="tip.payment_method"
+                ></v-list-item>
+            </v-list>
+        </v-card-text>
+        
+      </v-card>
+                
                 </v-col>
                 </v-row>
             </v-container>
