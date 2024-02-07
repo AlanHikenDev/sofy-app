@@ -117,10 +117,10 @@
         class="mx-auto"
         elevation="16"
         max-width="500"
-        title="Send a receipt"
+        title="Pago enviado"
       >
         <template v-slot:append>
-          <v-btn icon="$close" variant="text" @click="dialog = false"></v-btn>
+          <v-btn icon="$close" variant="text" @click="goToAllTips"></v-btn>
         </template>
 
         <v-divider></v-divider>
@@ -133,7 +133,14 @@
             size="128"
           ></v-icon>
 
-          <div class="text-h4 font-weight-bold">This receipt was sent</div>
+          <div class="text-h4 font-weight-bold">El pago de las propinas fue realizado</div>
+          <p>
+            Se repartio : {{ tip.total }}
+          </p>
+          <p>
+            entre : {{ tip.num_personas }}
+          </p>
+          <p>a cada una le toco : {{ tip.pago_por_persona }} </p>
         </div>
 
         <v-divider></v-divider>
@@ -145,9 +152,9 @@
             min-width="92"
             rounded
             variant="outlined"
-            @click="dialog = false"
+            @click="goToAllTips"
           >
-            Close
+            Cerrar
           </v-btn>
         </div>
       </v-card>
@@ -207,15 +214,20 @@
         },
         sendTip() {
             this.dialog = true
+
+            this.tip.pago_por_persona = this.subtotal
             
             const newtip = {
                 ...this.tip
             }
 
-            axios.post("http://localhost:3100/tasks", newtip).then((result) => {
+            axios.post("http://localhost:3100/tips", newtip).then((result) => {
                 console.log(result);
             });
             
+        },
+        goToAllTips() {
+            this.$router.push('/');
         }
       },
       computed: {
